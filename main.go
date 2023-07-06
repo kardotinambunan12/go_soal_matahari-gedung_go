@@ -8,13 +8,10 @@
 //    pertanyaan ;;; gedung mana (berapa gedung)  yang terkena sinar matahari ?
 
 // pertanyaan di bluebird  "btw ini belum tau benar atau enggak ya"
-
 package main
 
 import (
-	// "container/list"
 	"fmt"
-	// "os/user"
 )
 
 type Gedung struct {
@@ -24,39 +21,14 @@ type Gedung struct {
 
 type Gedungs []Gedung
 
-func (u Gedungs) NameList() []string {
+func (u Gedungs) FilterByTinggi(minTinggi int) []string {
 	var list []string
-	for _, lbangunan := range u {
-		if lbangunan.Tinggi > 3 {
-			list = append(list, lbangunan.NamaGedung)
-			
-
-		}else{
-			fmt.Println("Gedung yang tidak memenuhi syarat", lbangunan.NamaGedung)
+	for _, gedung := range u {
+		if gedung.Tinggi >= minTinggi {
+			list = append(list, gedung.NamaGedung)
 		}
 	}
 	return list
-}
-
-func (i Gedungs)ListGedung()[]string{
-	var lGedung []string
-	for _, gedung := range i {
-		if gedung.Tinggi >= 0{
-			lGedung = append(lGedung, gedung.NamaGedung)
-		}
-	}
-	return lGedung
-}
-func (i Gedungs)ListGedung2()[]string{
-	var lGedung []string
-	for _, gedung := range i {
-		if gedung.Tinggi >= 9{
-			lGedung = append(lGedung, gedung.NamaGedung)
-		}else{
-			fmt.Println("gedung yang tidak memnuhi syarat jika matahari 240 derajat : ", gedung.NamaGedung)
-		}
-	}
-	return lGedung
 }
 
 func main() {
@@ -68,13 +40,13 @@ func main() {
 		Gedung{NamaGedung: "GD5", Tinggi: 9},
 	}
 
-	UserList := gedungs.NameList()
-	lgedung := gedungs.ListGedung()
-	sgedung := gedungs.ListGedung2()
+	userList := gedungs.FilterByTinggi(3)
+	lgedung := gedungs.FilterByTinggi(0)
+	sgedung := gedungs.FilterByTinggi(9)
 
-	fmt.Println("Gedung yang memenuhi syarat jika matahari tinggi 45 derajat:",UserList)
+	fmt.Println("Gedung yang memenuhi syarat jika matahari tinggi 45 derajat:", userList)
 	fmt.Println("---------------------------------------------------")
-	fmt.Println("Gedung yang memenuhi syarat jika sinar matahari tepat di atas :",lgedung)
+	fmt.Println("Gedung yang memenuhi syarat jika sinar matahari tepat di atas:", lgedung)
 	fmt.Println("---------------------------------------------------")
-	fmt.Println("Gedung yang memenuhi syarat jika sinar matahari 240  derajat :",sgedung)
+	fmt.Println("Gedung yang memenuhi syarat jika sinar matahari 240 derajat:", sgedung)
 }
